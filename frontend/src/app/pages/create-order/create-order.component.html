@@ -1,0 +1,116 @@
+
+<div class="page-wrapper">
+  <div class="order-card">
+
+    <div class="page-heading">
+      <div class="heading-icon">📦</div>
+      <div>
+        <span class="eyebrow">SHIPMENT MANAGEMENT</span>
+        <h1>Create a Shipment</h1>
+        <p>Enter the shipment details to arrange a new delivery.</p>
+      </div>
+    </div>
+
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="step-number">01</span>
+          <div>
+            <h2>Sender Information</h2>
+            <p>Who is sending this package?</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Sender Name</label>
+            <input type="text" formControlName="senderName"
+              placeholder="Enter sender's full name">
+          </div>
+
+          <div class="form-group">
+            <label>Sender Phone</label>
+            <input type="text" formControlName="senderPhone"
+              placeholder="01XXXXXXXXX">
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="step-number">02</span>
+          <div>
+            <h2>Receiver Information</h2>
+            <p>Where should we deliver the package?</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Receiver Name</label>
+            <input type="text" formControlName="receiverName"
+              placeholder="Enter receiver's full name">
+          </div>
+
+          <div class="form-group">
+            <label>Receiver Phone</label>
+            <input type="text" formControlName="receiverPhone"
+              placeholder="01XXXXXXXXX">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Delivery Address</label>
+            <textarea formControlName="receiverAddress"
+              placeholder="Enter the complete delivery address"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span class="step-number">03</span>
+          <div>
+            <h2>Package Details</h2>
+            <p>Tell us about the shipment.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Package Description</label>
+            <input type="text" formControlName="packageDescription"
+              placeholder="e.g. Electronics, Documents">
+          </div>
+
+          <div class="form-group">
+            <label>Delivery Fee (EGP)</label>
+            <input type="number" formControlName="deliveryFee"
+              placeholder="0.00" min="0">
+          </div>
+        </div>
+      </section>
+
+      <div class="feedback success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="feedback error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="tracking-result" *ngIf="trackingNumber">
+        <span>Your tracking number</span>
+        <strong>{{ trackingNumber }}</strong>
+      </div>
+
+      <div class="form-footer">
+        <p>Your shipment information will be securely saved.</p>
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Creating Shipment...' : 'Create Shipment →' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

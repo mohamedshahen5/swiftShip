@@ -1,0 +1,87 @@
+<div class="shipments-page">
+
+  <div class="page-header">
+    <div>
+      <h1>My Shipments</h1>
+      <p>Manage and monitor all your delivery orders.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadShipments()">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <div class="summary">
+    <div class="summary-card">
+      <span>Total Shipments</span>
+      <h2>{{ shipments.length }}</h2>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="message">
+    Loading your shipments...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div
+    *ngIf="!loading && !errorMessage && shipments.length === 0"
+    class="empty-state"
+  >
+    <h2>No shipments yet</h2>
+    <p>Your delivery orders will appear here.</p>
+  </div>
+
+  <div
+    class="table-container"
+    *ngIf="!loading && shipments.length > 0"
+  >
+    <table>
+      <thead>
+        <tr>
+          <th>Tracking Number</th>
+          <th>Receiver</th>
+          <th>Package</th>
+          <th>Delivery Fee</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let shipment of shipments">
+          <td class="tracking">
+            {{ shipment.tracking_number }}
+          </td>
+
+          <td>
+            {{ shipment.receiver_name }}
+            <small>{{ shipment.receiver_phone }}</small>
+          </td>
+
+          <td>{{ shipment.package_description }}</td>
+
+          <td>
+            {{ shipment.delivery_fee | currency:'EGP':'symbol':'1.2-2' }}
+          </td>
+
+          <td>
+            <span
+              class="status"
+              [ngClass]="getStatusClass(shipment.status)"
+            >
+              {{ shipment.status.replace('_', ' ') }}
+            </span>
+          </td>
+
+          <td>
+            {{ shipment.created_at | date:'mediumDate' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

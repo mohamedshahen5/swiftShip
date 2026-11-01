@@ -1,0 +1,112 @@
+
+<div class="auth-page">
+  <div class="auth-shell">
+
+    <aside class="brand-panel">
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <span>SwiftShip</span>
+      </div>
+
+      <div class="brand-content">
+        <span class="eyebrow">SMART DELIVERY SOLUTIONS</span>
+        <h1>Deliver more.<br>Worry less.</h1>
+        <p>
+          Manage your shipments, track deliveries, and keep everything
+          moving from one simple platform.
+        </p>
+
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Easy shipment management</span>
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Real-time shipment tracking</span>
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Reliable delivery experience</span>
+        </div>
+      </div>
+
+      <div class="brand-footer">
+        Your delivery journey starts here.
+      </div>
+    </aside>
+
+    <main class="form-panel">
+      <div class="mobile-brand">
+        <div class="brand-logo">S</div>
+        <span>SwiftShip</span>
+      </div>
+
+      <div class="form-content">
+        <span class="eyebrow">WELCOME BACK</span>
+        <h2>Sign in to your account</h2>
+        <p class="subtitle">
+          Enter your details to access your shipment dashboard.
+        </p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            >
+
+            <small class="field-error"
+              *ngIf="loginForm.get('email')?.touched &&
+              loginForm.get('email')?.invalid">
+              Please enter a valid email address.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            >
+
+            <small class="field-error"
+              *ngIf="loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid">
+              Password must be at least 8 characters.
+            </small>
+          </div>
+
+          <div class="feedback error" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <button type="submit" [disabled]="loading">
+            {{ loading ? 'Signing in...' : 'Sign In' }}
+            <span *ngIf="!loading">→</span>
+          </button>
+
+        </form>
+
+        <div class="form-bottom">
+          Don't have an account?
+          <a routerLink="/register">Create an account</a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 SwiftShip. All rights reserved.
+      </div>
+    </main>
+
+  </div>
+</div>

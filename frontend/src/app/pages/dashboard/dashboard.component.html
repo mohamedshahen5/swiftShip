@@ -1,0 +1,93 @@
+<div class="dashboard">
+
+  <div class="welcome-section">
+    <div>
+      <span class="eyebrow">OVERVIEW</span>
+      <h1>Welcome to SwiftShip</h1>
+      <p>Manage and monitor all your shipments in one place.</p>
+    </div>
+
+    <a routerLink="/create-order" class="create-button">
+      + Create Shipment
+    </a>
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon blue">▤</div>
+      <span>Total Shipments</span>
+      <h2>—</h2>
+      <small>Your shipment history</small>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon orange">◷</div>
+      <span>Pending</span>
+      <h2>—</h2>
+      <small>Awaiting pickup</small>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon purple">↗</div>
+      <span>In Transit</span>
+      <h2>—</h2>
+      <small>Currently being delivered</small>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">✓</div>
+      <span>Delivered</span>
+      <h2>—</h2>
+      <small>Successfully completed</small>
+    </div>
+
+  </div>
+
+  <div class="content-grid">
+
+    <div class="welcome-card">
+      <div class="welcome-card-content">
+        <span class="eyebrow">READY TO SHIP?</span>
+        <h2>Send your package<br>with confidence.</h2>
+        <p>Create a shipment and let SwiftShip handle the delivery.</p>
+
+        <a routerLink="/create-order">Create your first shipment →</a>
+      </div>
+      <div class="package-icon">📦</div>
+    </div>
+
+    <div class="quick-card">
+      <h3>Quick Actions</h3>
+
+      <a routerLink="/create-order">
+        <span class="quick-icon">＋</span>
+        <span>
+          <strong>New Shipment</strong>
+          <small>Arrange a new delivery</small>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a routerLink="/my-shipments">
+        <span class="quick-icon">▤</span>
+        <span>
+          <strong>My Shipments</strong>
+          <small>View your orders</small>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a routerLink="/track">
+        <span class="quick-icon">⌕</span>
+        <span>
+          <strong>Track Shipment</strong>
+          <small>Check delivery progress</small>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+
+</div>

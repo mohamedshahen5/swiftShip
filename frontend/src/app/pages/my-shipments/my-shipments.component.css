@@ -1,0 +1,152 @@
+.shipments-page {
+  padding: 30px;
+  color: #24334a;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.page-header p {
+  color: #7b8798;
+  margin: 0;
+}
+
+.refresh-btn {
+  background: #2869c7;
+  color: white;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.summary {
+  margin-bottom: 25px;
+}
+
+.summary-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid #e7ebf1;
+  max-width: 230px;
+}
+
+.summary-card span {
+  color: #7b8798;
+  font-size: 14px;
+}
+
+.summary-card h2 {
+  margin: 12px 0 0;
+  font-size: 30px;
+}
+
+.table-container {
+  background: white;
+  border: 1px solid #e7ebf1;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+th, td {
+  padding: 17px;
+  text-align: left;
+  border-bottom: 1px solid #edf0f4;
+  font-size: 14px;
+}
+
+th {
+  background: #f8fafd;
+  color: #6d7b8e;
+  font-weight: 600;
+}
+
+td small {
+  display: block;
+  margin-top: 5px;
+  color: #8b96a5;
+}
+
+.tracking {
+  color: #2869c7;
+  font-weight: 600;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.pending {
+  background: #fff3d8;
+  color: #a66a00;
+}
+
+.picked-up {
+  background: #e9e5ff;
+  color: #6750b5;
+}
+
+.in-transit {
+  background: #e2efff;
+  color: #2869c7;
+}
+
+.delivered {
+  background: #def6e8;
+  color: #21834b;
+}
+
+.cancelled {
+  background: #ffe5e5;
+  color: #c03939;
+}
+
+.message,
+.empty-state,
+.error-message {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.error-message {
+  color: #c03939;
+}
+
+.empty-state p {
+  color: #7b8798;
+}
+
+@media (max-width: 600px) {
+  .shipments-page {
+    padding: 18px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

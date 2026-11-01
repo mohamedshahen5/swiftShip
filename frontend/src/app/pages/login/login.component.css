@@ -1,0 +1,284 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  box-sizing: border-box;
+  background: #f2f5fa;
+}
+
+.auth-shell {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 650px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 25px 70px rgba(24, 43, 72, 0.12);
+}
+
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 45px;
+  color: white;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(69, 132, 224, .4), transparent 35%),
+    linear-gradient(145deg, #14243d, #1c426f);
+}
+
+.brand,
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #4385e5;
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.brand-content {
+  max-width: 390px;
+}
+
+.eyebrow {
+  color: #4d8fe9;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.brand-panel .eyebrow {
+  color: #91baff;
+}
+
+.brand-content h1 {
+  margin: 18px 0;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.15;
+  letter-spacing: -1.8px;
+}
+
+.brand-content > p {
+  max-width: 340px;
+  margin-bottom: 35px;
+  color: #c2d0e3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 18px;
+  color: #e1eaf7;
+  font-size: 13px;
+}
+
+.feature-icon {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: rgba(88, 157, 245, .2);
+  color: #9bc4ff;
+  font-weight: 800;
+}
+
+.brand-footer {
+  color: #a8bad1;
+  font-size: 12px;
+}
+
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 55px 65px 28px;
+}
+
+.form-content {
+  width: 100%;
+  max-width: 390px;
+  margin: auto;
+}
+
+.form-content h2 {
+  margin: 12px 0 8px;
+  color: #172b4d;
+  font-size: 29px;
+  letter-spacing: -.8px;
+}
+
+.subtitle {
+  margin-bottom: 35px;
+  color: #8491a5;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+label {
+  color: #34445d;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 15px;
+  border: 1px solid #dfe6ef;
+  border-radius: 9px;
+  outline: none;
+  background: #fbfcfe;
+  color: #253650;
+  font: inherit;
+  font-size: 13px;
+  transition: .2s ease;
+}
+
+input::placeholder {
+  color: #aab4c3;
+}
+
+input:focus {
+  border-color: #4385e5;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(67, 133, 229, .12);
+}
+
+.field-error {
+  color: #d34444;
+  font-size: 11px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 9px;
+  background: #2869c7;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(40, 105, 199, .2);
+  transition: .2s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #1d56a7;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.form-bottom {
+  margin-top: 25px;
+  text-align: center;
+  color: #8491a5;
+  font-size: 13px;
+}
+
+.form-bottom a {
+  margin-left: 4px;
+  color: #2869c7;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-bottom a:hover {
+  text-decoration: underline;
+}
+
+.feedback {
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.error {
+  background: #fff0f0;
+  color: #c43c3c;
+}
+
+.copyright {
+  color: #a0aaba;
+  text-align: center;
+  font-size: 11px;
+}
+
+.mobile-brand {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .auth-page {
+    padding: 15px;
+  }
+
+  .auth-shell {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    min-height: 600px;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .form-panel {
+    padding: 30px 25px;
+  }
+
+  .mobile-brand {
+    display: flex;
+    margin-bottom: 40px;
+    color: #172b4d;
+  }
+
+  .form-content {
+    margin: 0 auto;
+  }
+}

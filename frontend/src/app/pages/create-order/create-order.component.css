@@ -1,0 +1,264 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #172b4d;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  padding: 55px 20px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top left, #dceaff 0, transparent 35%),
+    linear-gradient(135deg, #f5f8fc, #edf2f9);
+}
+
+.order-card {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 42px;
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 20px;
+  box-shadow: 0 15px 45px rgba(31, 55, 90, 0.08);
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.heading-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background: #eaf2ff;
+  border-radius: 16px;
+  font-size: 28px;
+}
+
+.eyebrow {
+  color: #3976d5;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  margin: 7px 0;
+  font-size: 29px;
+  font-weight: 750;
+  letter-spacing: -0.8px;
+  color: #14243d;
+}
+
+.page-heading p,
+.section-heading p {
+  margin: 0;
+  color: #8491a5;
+  font-size: 13px;
+}
+
+.form-section {
+  padding: 28px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 23px;
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  background: #edf4ff;
+  color: #3976d5;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.section-heading h2 {
+  margin: 0 0 5px;
+  color: #253650;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+label {
+  color: #34445d;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border: 1px solid #dfe6ef;
+  border-radius: 9px;
+  outline: none;
+  background: #fbfcfe;
+  color: #253650;
+  font: inherit;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aab4c3;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4385e5;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(67, 133, 229, 0.12);
+}
+
+textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 28px;
+}
+
+.form-footer p {
+  color: #8b98aa;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+button {
+  padding: 14px 23px;
+  border: none;
+  border-radius: 9px;
+  background: #2869c7;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 5px 13px rgba(40, 105, 199, 0.2);
+}
+
+button:hover:not(:disabled) {
+  background: #1d56a7;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedback {
+  margin-top: 20px;
+  padding: 13px 16px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.success {
+  background: #eaf8ef;
+  color: #21834b;
+}
+
+.error {
+  background: #fff0f0;
+  color: #c43c3c;
+}
+
+.tracking-result {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 18px;
+  padding: 17px;
+  background: #edf4ff;
+  border: 1px dashed #8bb5ed;
+  border-radius: 10px;
+}
+
+.tracking-result span {
+  color: #617895;
+  font-size: 12px;
+}
+
+.tracking-result strong {
+  color: #225ca9;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 650px) {
+  .page-wrapper {
+    padding: 20px 12px;
+  }
+
+  .order-card {
+    padding: 24px 18px;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .form-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
