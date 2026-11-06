@@ -27,7 +27,6 @@ var (
 	nameRegex = regexp.MustCompile(`^[\p{L}][\p{L}\p{M} '-]*$`)
 
 	phoneRegex = regexp.MustCompile(`^(?:\+20|0)1[0125][0-9]{8}$`)
-
 )
 
 // Validate name
@@ -57,34 +56,34 @@ func isValidPhone(phone string) bool {
 
 // Validate password
 func isValidPassword(password string) bool {
-    if utf8.RuneCountInString(password) < 8 {
-        return false
-    }
+	if utf8.RuneCountInString(password) < 8 {
+		return false
+	}
 
-    hasUpper := false
-    hasLower := false
-    hasDigit := false
-    hasSpecial := false
+	hasUpper := false
+	hasLower := false
+	hasDigit := false
+	hasSpecial := false
 
-    for _, char := range password {
-        switch {
-        case unicode.IsUpper(char):
-            hasUpper = true
+	for _, char := range password {
+		switch {
+		case unicode.IsUpper(char):
+			hasUpper = true
 
-        case unicode.IsLower(char):
-            hasLower = true
+		case unicode.IsLower(char):
+			hasLower = true
 
-        case unicode.IsDigit(char):
-            hasDigit = true
+		case unicode.IsDigit(char):
+			hasDigit = true
 
-        case !unicode.IsLetter(char) &&
-            !unicode.IsNumber(char) &&
-            !unicode.IsSpace(char):
-            hasSpecial = true
-        }
-    }
+		case !unicode.IsLetter(char) &&
+			!unicode.IsNumber(char) &&
+			!unicode.IsSpace(char):
+			hasSpecial = true
+		}
+	}
 
-    return hasUpper && hasLower && hasDigit && hasSpecial
+	return hasUpper && hasLower && hasDigit && hasSpecial
 }
 
 func Register(db *sql.DB) gin.HandlerFunc {
@@ -162,8 +161,8 @@ func Register(db *sql.DB) gin.HandlerFunc {
 
 		// Insert user into database
 		result, err := db.Exec(
-			`INSERT INTO users (name, email, phone, password_hash)
-			 VALUES (?, ?, ?, ?)`,
+			`INSERT INTO users (name, email, phone, password_hash, role)
+			 VALUES (?, ?, ?, ?, 'customer')`,
 			req.Name,
 			req.Email,
 			req.Phone,

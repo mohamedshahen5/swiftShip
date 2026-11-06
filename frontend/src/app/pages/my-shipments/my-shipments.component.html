@@ -45,8 +45,8 @@
           <th>Receiver</th>
           <th>Package</th>
           <th>Delivery Fee</th>
-          <th>Status</th>
-          <th>Created At</th>
+          <th>Pickup</th><th>Delivery time</th><th>Status</th>
+          <th>Created At</th><th>Details</th>
         </tr>
       </thead>
 
@@ -67,18 +67,13 @@
             {{ shipment.delivery_fee | currency:'EGP':'symbol':'1.2-2' }}
           </td>
 
-          <td>
-            <span
-              class="status"
-              [ngClass]="getStatusClass(shipment.status)"
-            >
-              {{ shipment.status.replace('_', ' ') }}
-            </span>
-          </td>
+          <td>{{ shipment.pickup_address || "—" }}</td><td>{{ shipment.delivery_time || "—" }}</td>
+          <td><app-status-badge [status]="shipment.status" /></td>
 
           <td>
             {{ shipment.created_at | date:'mediumDate' }}
           </td>
+          <td><a [routerLink]="['/shipments',shipment.id]">View details</a></td>
         </tr>
       </tbody>
     </table>

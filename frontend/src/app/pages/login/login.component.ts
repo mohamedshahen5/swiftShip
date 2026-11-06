@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { roleHome } from '../../models/shipment.model';
 
 @Component({
   selector: 'app-login',
@@ -70,8 +71,7 @@ export class Login {
 
         // Temporary success message until we build My Orders
         this.errorMessage = '';
-        alert('Login successful!');
-         this.router.navigate(['/dashboard']);
+        this.router.navigateByUrl(roleHome(response.user.role));
 
       },
 

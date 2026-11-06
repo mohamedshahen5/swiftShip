@@ -1,16 +1,2 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-
-  const token = localStorage.getItem('token');
-
-  if (token && req.url.startsWith('http://localhost:8080/api/')) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  }
-
-  return next(req);
-};
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';import { inject } from '@angular/core';import { Router } from '@angular/router';import { catchError,throwError } from 'rxjs';import { environment } from '../environments/environment';
+export const authInterceptor:HttpInterceptorFn=(req,next)=>{const router=inject(Router);const token=localStorage.getItem('token');const api=req.url.startsWith(`${environment.apiUrl}/`);const request=api&&token?req.clone({setHeaders:{Authorization:`Bearer ${token}`}}):req;return next(request).pipe(catchError((err:HttpErrorResponse)=>{if(err.status===401&&api&&!req.url.endsWith('/auth/login')){localStorage.removeItem('token');localStorage.removeItem('user');router.navigate(['/login'])}return throwError(()=>err)}))};

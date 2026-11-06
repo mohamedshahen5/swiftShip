@@ -1,148 +1,60 @@
 package handlers
 
 import (
-    "database/sql"
-    "net/http"
-
-    "github.com/gin-gonic/gin"
+	"database/sql"
+	"errors"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strconv"
 )
 
 type UpdateStatusRequest struct {
-    Status string `json:"status" binding:"required"`
-    Notes  string `json:"notes"`
+	Status string `json:"status" binding:"required"`
+	Notes  string `json:"notes"`
 }
 
+func changeStatus(db *sql.DB, c *gin.Context, to, notes string, courier *uint64) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil || id == 0 {
+		c.JSON(400, gin.H{"message": "Invalid shipment id"})
+		return
+	}
+	uid, role := CurrentUser(c)
+	tx, err := db.BeginTx(c.Request.Context(), nil)
+	if err != nil {
+		c.JSON(500, gin.H{"message": "Transaction failed"})
+		return
+	}
+	defer tx.Rollback()
+	err = ApplyStatusChange(tx, id, uid, role, to, notes, courier)
+	if err != nil {
+		code := http.StatusInternalServerError
+		if errors.Is(err, ErrNotFound) {
+			code = 404
+		} else if errors.Is(err, ErrForbidden) {
+			code = 403
+		} else if errors.Is(err, ErrTransition) {
+			code = 409
+		}
+		c.JSON(code, gin.H{"message": err.Error()})
+		return
+	}
+	if err = tx.Commit(); err != nil {
+		c.JSON(500, gin.H{"message": "Commit failed"})
+		return
+	}
+	c.JSON(200, gin.H{"message": "Shipment updated", "status": to})
+}
 func UpdateShipmentStatus(db *sql.DB) gin.HandlerFunc {
-    return func(c *gin.Context) {
-
-        shipmentID := c.Param("id")
-
-        var req UpdateStatusRequest
-
-        if err := c.ShouldBindJSON(&req); err != nil {
-            c.JSON(http.StatusBadRequest, gin.H{
-                "message": "Invalid request",
-            })
-            return
-        }
-
-        // Validate the new status.
-        allowedStatuses := map[string]bool{
-            "picked_up": true,
-            "in_transit": true,
-            "delivered": true,
-            "cancelled": true,
-        }
-
-        if !allowedStatuses[req.Status] {
-            c.JSON(http.StatusBadRequest, gin.H{
-                "message": "Invalid shipment status",
-            })
-            return
-        }
-
-        // Start a transaction.
-        tx, err := db.Begin()
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{
-                "message": "Could not start transaction",
-            })
-            return
-        }
-        defer tx.Rollback()
-
-        // Get the current status and lock this shipment row.
-        var oldStatus string
-
-        err = tx.QueryRow(`
-            SELECT status
-            FROM shipments
-            WHERE id = ?
-            FOR UPDATE
-        `, shipmentID).Scan(&oldStatus)
-
-        if err == sql.ErrNoRows {
-            c.JSON(http.StatusNotFound, gin.H{
-                "message": "Shipment not found",
-            })
-            return
-        }
-
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{
-                "message": "Failed to retrieve shipment",
-            })
-            return
-        }
-
-        // Prevent invalid status transitions.
-        validTransition := map[string][]string{
-            "pending":   {"picked_up", "cancelled"},
-            "picked_up": {"in_transit", "cancelled"},
-            "in_transit": {"delivered"},
-        }
-
-        allowedNext := validTransition[oldStatus]
-        valid := false
-
-        for _, status := range allowedNext {
-            if status == req.Status {
-                valid = true
-                break
-            }
-        }
-
-        if !valid {
-            c.JSON(http.StatusBadRequest, gin.H{
-                "message": "This status transition is not allowed",
-            })
-            return
-        }
-
-        // Update shipment status.
-        _, err = tx.Exec(`
-            UPDATE shipments
-            SET status = ?
-            WHERE id = ?
-        `, req.Status, shipmentID)
-
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{
-                "message": "Failed to update shipment status",
-            })
-            return
-        }
-
-        // Record status history.
-        _, err = tx.Exec(`
-            INSERT INTO shipment_history (
-                shipment_id,
-                old_status,
-                new_status,
-                notes
-            )
-            VALUES (?, ?, ?, ?)
-        `, shipmentID, oldStatus, req.Status, req.Notes)
-
-        if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{
-                "message": "Failed to save shipment history",
-            })
-            return
-        }
-
-        // Commit both database operations.
-        if err := tx.Commit(); err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{
-                "message": "Failed to save changes",
-            })
-            return
-        }
-
-        c.JSON(http.StatusOK, gin.H{
-            "message": "Shipment status updated successfully",
-            "old_status": oldStatus,
-            "new_status": req.Status,
-        })
-    }
+	return func(c *gin.Context) {
+		var r UpdateStatusRequest
+		if c.ShouldBindJSON(&r) != nil {
+			c.JSON(400, gin.H{"message": "Invalid status"})
+			return
+		}
+		changeStatus(db, c, r.Status, r.Notes, nil)
+	}
+}
+func CancelShipment(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) { changeStatus(db, c, "cancelled", "Cancelled by customer", nil) }
 }

@@ -1,20 +1,3 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router';
-
-@Component({
-  selector: 'app-dashboard-layout',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet],
-  templateUrl: './dashboard-layout.component.html',
-  styleUrl: './dashboard-layout.component.css'
-})
-export class DashboardLayout {
-  constructor(private router: Router) {}
-logout(): void {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-
-  this.router.navigate(['/login']);
-}
-}
+import {Component} from '@angular/core';import {CommonModule} from '@angular/common';import {Router,RouterLink,RouterLinkActive,RouterOutlet} from '@angular/router';import {AuthService} from '../../services/auth.service';import {Role} from '../../models/shipment.model';
+@Component({selector:'app-dashboard-layout',standalone:true,imports:[CommonModule,RouterLink,RouterLinkActive,RouterOutlet],templateUrl:'./dashboard-layout.component.html',styleUrl:'./dashboard-layout.component.css'})
+export class DashboardLayout{menu:{label:string;route:string;roles:Role[]}[]=[{label:'Dashboard',route:'/dashboard',roles:['customer']},{label:'Create Shipment',route:'/create-order',roles:['customer']},{label:'My Shipments',route:'/my-shipments',roles:['customer']},{label:'Courier Assignments',route:'/courier/assigned',roles:['courier']},{label:'Dashboard',route:'/admin/dashboard',roles:['admin']},{label:'Manage Orders',route:'/admin/orders',roles:['admin']}];constructor(public auth:AuthService,private router:Router){}get visibleMenu(){return this.menu.filter(m=>m.roles.includes(this.auth.getRole()||'customer'))}logout(){this.auth.logout();this.router.navigate(['/login'])}}

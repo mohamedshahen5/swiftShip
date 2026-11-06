@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
-import { Shipment } from '../../services/auth.service';
+import { ShipmentService } from '../../services/shipment.service';
+import { Shipment } from '../../models/shipment.model';
+import { RouterLink } from '@angular/router';
+import { StatusBadge } from '../../shared/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-my-shipments',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, StatusBadge],
   templateUrl: './my-shipments.component.html',
   styleUrl: './my-shipments.component.css'
 })
@@ -16,7 +18,7 @@ export class MyShipments implements OnInit {
   loading = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private shipmentService: ShipmentService) {}
 
   ngOnInit(): void {
     this.loadShipments();
@@ -26,7 +28,7 @@ export class MyShipments implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    this.authService.getMyShipments().subscribe({
+    this.shipmentService.mine().subscribe({
       next: (response) => {
         this.shipments = response.shipments;
         this.loading = false;
