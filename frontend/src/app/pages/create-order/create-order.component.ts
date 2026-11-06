@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
+import { ShipmentService } from '../../services/shipment.service';
 
 @Component({
   selector: 'app-create-order',
@@ -25,15 +25,17 @@ export class CreateOrder {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private shipmentService: ShipmentService
   ) {
     this.orderForm = this.fb.group({
-      senderName: ['', Validators.required],
-      senderPhone: ['', Validators.required],
-      receiverName: ['', Validators.required],
-      receiverPhone: ['', Validators.required],
-      receiverAddress: ['', Validators.required],
-      packageDescription: ['', Validators.required],
+      senderName: ['', [Validators.required, Validators.maxLength(100)]],
+      senderPhone: ['', [Validators.required, Validators.maxLength(20)]],
+      receiverName: ['', [Validators.required, Validators.maxLength(100)]],
+      receiverPhone: ['', [Validators.required, Validators.maxLength(20)]],
+      receiverAddress: ['', [Validators.required, Validators.maxLength(2000)]],
+      packageDescription: ['', [Validators.required, Validators.maxLength(255)]],
+      pickupAddress: ['', Validators.maxLength(2000)],
+      deliveryTime: [''],
       deliveryFee: [0, [Validators.required, Validators.min(0)]]
     });
   }
@@ -44,6 +46,7 @@ export class CreateOrder {
 
   if (this.orderForm.invalid) {
     this.orderForm.markAllAsTouched();
+    this.errorMessage = "Please complete all required fields correctly.";
     return;
   }
 
@@ -57,11 +60,13 @@ export class CreateOrder {
     receiver_name: formValue.receiverName,
     receiver_phone: formValue.receiverPhone,
     receiver_address: formValue.receiverAddress,
+    pickup_address: formValue.pickupAddress || null,
+    delivery_time: formValue.deliveryTime ? formValue.deliveryTime.replace("T"," ") + ":00" : null,
     package_description: formValue.packageDescription,
     delivery_fee: Number(formValue.deliveryFee)
   };
 
-  this.authService.createShipment(shipmentData).subscribe({
+  this.shipmentService.create(shipmentData).subscribe({
     next: (response) => {
       this.successMessage = response.message;
       this.trackingNumber = response.tracking_number;

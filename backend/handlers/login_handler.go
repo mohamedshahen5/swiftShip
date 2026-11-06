@@ -1,4 +1,3 @@
-
 package handlers
 
 import (
@@ -21,6 +20,7 @@ type LoginRequest struct {
 type Claims struct {
 	UserID uint64 `json:"user_id"`
 	Email  string `json:"email"`
+	Role   string `json:"role"`
 
 	jwt.RegisteredClaims
 }
@@ -49,9 +49,10 @@ func Login(db *sql.DB) gin.HandlerFunc {
 		var name string
 		var email string
 		var passwordHash string
+		var phone, role string
 
 		err := db.QueryRow(
-			`SELECT id, name, email, password_hash
+			`SELECT id, name, email, phone, role, password_hash
 			 FROM users
 			 WHERE email = ?`,
 			req.Email,
@@ -59,6 +60,8 @@ func Login(db *sql.DB) gin.HandlerFunc {
 			&userID,
 			&name,
 			&email,
+			&phone,
+			&role,
 			&passwordHash,
 		)
 
@@ -93,6 +96,7 @@ func Login(db *sql.DB) gin.HandlerFunc {
 		claims := Claims{
 			UserID: userID,
 			Email:  email,
+			Role:   role,
 			RegisteredClaims: jwt.RegisteredClaims{
 				ExpiresAt: jwt.NewNumericDate(
 					time.Now().Add(24 * time.Hour),
@@ -122,6 +126,8 @@ func Login(db *sql.DB) gin.HandlerFunc {
 				"id":    userID,
 				"name":  name,
 				"email": email,
+				"phone": phone,
+				"role":  role,
 			},
 		})
 	}

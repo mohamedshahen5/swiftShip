@@ -1,80 +1,58 @@
 package middleware
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"net/http"
 	"os"
 	"strings"
-
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 )
 
 type Claims struct {
 	UserID uint64 `json:"user_id"`
 	Email  string `json:"email"`
+	Role   string `json:"role"`
 	jwt.RegisteredClaims
 }
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"message": "Authorization header is required",
-			})
-			c.Abort()
-			return
-		}
-
-		parts := strings.SplitN(authHeader, " ", 2)
-
+		parts := strings.SplitN(c.GetHeader("Authorization"), " ", 2)
 		if len(parts) != 2 || parts[0] != "Bearer" {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"message": "Authorization header must be Bearer <token>",
-			})
-			c.Abort()
+			c.AbortWithStatusJSON(401, gin.H{"message": "Bearer token required"})
 			return
 		}
-
-		tokenString := parts[1]
 		secret := os.Getenv("JWT_SECRET")
-
 		if secret == "" {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"message": "JWT secret is not configured",
-			})
-			c.Abort()
+			c.AbortWithStatusJSON(500, gin.H{"message": "JWT secret not configured"})
 			return
 		}
-
 		claims := &Claims{}
-
-		token, err := jwt.ParseWithClaims(
-			tokenString,
-			claims,
-			func(token *jwt.Token) (interface{}, error) {
-				// Accept only the expected signing algorithm.
-				if token.Method != jwt.SigningMethodHS256 {
-					return nil, jwt.ErrSignatureInvalid
-				}
-
-				return []byte(secret), nil
-			},
-		)
-
-		if err != nil || !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"message": "Invalid or expired token",
-			})
-			c.Abort()
+		token, err := jwt.ParseWithClaims(parts[1], claims, func(t *jwt.Token) (interface{}, error) {
+			if t.Method != jwt.SigningMethodHS256 {
+				return nil, jwt.ErrSignatureInvalid
+			}
+			return []byte(secret), nil
+		})
+		if err != nil || !token.Valid || claims.UserID == 0 || (claims.Role != "customer" && claims.Role != "courier" && claims.Role != "admin") {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Invalid or expired token"})
 			return
 		}
-
-		// Store the authenticated user's ID for later handlers.
 		c.Set("userID", claims.UserID)
+		c.Set("userRole", claims.Role)
 		c.Set("userEmail", claims.Email)
-
 		c.Next()
+	}
+}
+func RequireRole(roles ...string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		r, _ := c.Get("userRole")
+		for _, allowed := range roles {
+			if r == allowed {
+				c.Next()
+				return
+			}
+		}
+		c.AbortWithStatusJSON(403, gin.H{"message": "Insufficient permissions"})
 	}
 }

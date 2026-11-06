@@ -1,0 +1,3 @@
+import { Injectable } from '@angular/core';import { HttpClient } from '@angular/common/http';import { environment } from '../environments/environment';import { ShipmentList,ShipmentStatus } from '../models/shipment.model';
+// MEMBER 3 service: add page-specific logic here.
+@Injectable({providedIn:'root'})export class CourierService {private url=`${environment.apiUrl}/courier/shipments`;constructor(private http:HttpClient){}list(){return this.http.get<ShipmentList>(this.url)}accept(id:number){return this.http.post(`${this.url}/${id}/accept`,{})}decline(id:number){return this.http.post(`${this.url}/${id}/decline`,{})}updateStatus(id:number,status:ShipmentStatus,notes=''){return this.http.patch(`${this.url}/${id}/status`,{status,notes})}}

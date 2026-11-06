@@ -1,0 +1,2 @@
+import {inject} from '@angular/core';import {CanActivateFn,Router} from '@angular/router';import {AuthService} from '../services/auth.service';import {Role,roleHome} from '../models/shipment.model';
+export const roleGuard:CanActivateFn=(route)=>{const auth=inject(AuthService);const role=auth.getRole();if(!auth.isLoggedIn())return inject(Router).createUrlTree(['/login']);return role && (route.data['roles'] as Role[]).includes(role)?true:inject(Router).createUrlTree([roleHome(role)])};
