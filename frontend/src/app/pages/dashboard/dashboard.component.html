@@ -17,28 +17,28 @@
     <div class="stat-card">
       <div class="stat-icon blue">▤</div>
       <span>Total Shipments</span>
-      <h2>—</h2>
+      <h2>{{ loading ? '...' : total }}</h2>
       <small>Your shipment history</small>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon orange">◷</div>
       <span>Pending</span>
-      <h2>—</h2>
+      <h2>{{ loading ? '...' : pending }}</h2>
       <small>Awaiting pickup</small>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon purple">↗</div>
       <span>In Transit</span>
-      <h2>—</h2>
+      <h2>{{ loading ? '...' : inTransit }}</h2>
       <small>Currently being delivered</small>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon green">✓</div>
       <span>Delivered</span>
-      <h2>—</h2>
+      <h2>{{ loading ? '...' : delivered }}</h2>
       <small>Successfully completed</small>
     </div>
 

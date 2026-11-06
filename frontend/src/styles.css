@@ -1,1 +1,468 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   SwiftShip — Vibrant Modern Fintech Theme (Stripe / Bosta style)
+   Applied cleanly via global styles without touching multiple template files
+   ========================================================================== */
+
+/* 1. Global Reset & Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: #1e1b4b;
+  background-color: #f7f9fd;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, .brand, .stat-card h2, .topbar h2, .order-card h1, .order-card h2 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
+  letter-spacing: -0.03em;
+}
+
+/* 2. Luminous Fintech Mesh Background */
+.app-layout, .auth-page {
+  background-color: #f8faff !important;
+  background-image:
+    radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.08) 0px, transparent 45%),
+    radial-gradient(at 90% 12%, rgba(236, 72, 153, 0.07) 0px, transparent 40%),
+    radial-gradient(at 75% 75%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 20% 85%, rgba(139, 92, 246, 0.06) 0px, transparent 45%) !important;
+  background-attachment: fixed !important;
+}
+
+/* 3. Custom Smooth Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #f8faff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* 4. Sidebar: Midnight Indigo with Electric Accents */
+.sidebar {
+  background: linear-gradient(185deg, #0b0f24 0%, #111736 60%, #151b42 100%) !important;
+  border-right: 1px solid rgba(139, 92, 246, 0.15) !important;
+  box-shadow: 4px 0 30px rgba(11, 15, 36, 0.25) !important;
+  padding: 30px 20px !important;
+}
+
+.brand {
+  margin-bottom: 45px !important;
+}
+
+.brand-logo {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) !important;
+  box-shadow: 0 8px 24px -2px rgba(99, 102, 241, 0.5) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.brand span {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  background: linear-gradient(120deg, #ffffff 40%, #c4b5fd 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.04em !important;
+}
+
+.menu-label {
+  color: #798bb0 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.8px !important;
+}
+
+.navigation {
+  gap: 6px !important;
+}
+
+.navigation a {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  color: #a5b4cf !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 12px 16px !important;
+}
+
+.navigation a:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  transform: translateX(4px);
+}
+
+.navigation a.active {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45) !important;
+  font-weight: 700 !important;
+}
+
+.logout-button {
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #cbd5e1 !important;
+  transition: all 0.2s ease !important;
+}
+
+.logout-button:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #fca5a5 !important;
+}
+
+/* 5. Topbar: Frosted Glass */
+.topbar {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+.topbar-label {
+  color: #6366f1 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.5px !important;
+}
+
+.topbar h2 {
+  color: #0f172a !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.user-profile {
+  background: #ffffff !important;
+  border-radius: 9999px !important;
+  padding: 8px 18px !important;
+  font-weight: 600 !important;
+  color: #1e1b4b !important;
+  border: 1px solid #e0e7ff !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+}
+
+/* 6. Dashboard: Stat Cards */
+.stat-card {
+  border-radius: 20px !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  background: linear-gradient(145deg, #ffffff 0%, #fbfcfe 100%) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 32px -4px rgba(79, 70, 229, 0.12), 0 6px 12px -2px rgba(0, 0, 0, 0.03) !important;
+  border-color: #c7d2fe !important;
+}
+
+.stat-card:hover::before {
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+}
+
+.stat-card > span {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+}
+
+.stat-card h2 {
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.04em !important;
+}
+
+.stat-card small {
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  font-weight: 500;
+}
+
+/* Rich Luminous Stat Icons */
+.stat-icon {
+  border-radius: 14px !important;
+  width: 46px !important;
+  height: 46px !important;
+  font-size: 21px !important;
+}
+
+.stat-icon.blue {
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px -2px rgba(59, 130, 246, 0.4) !important;
+}
+
+.stat-icon.orange {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px -2px rgba(249, 115, 22, 0.4) !important;
+}
+
+.stat-icon.purple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px -2px rgba(217, 70, 239, 0.4) !important;
+}
+
+.stat-icon.green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px -2px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* 7. Welcome Banner: Bold Stripe/Fintech Gradient */
+.welcome-card {
+  border-radius: 22px !important;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 75%, #6366f1 100%) !important;
+  box-shadow: 0 16px 36px -6px rgba(49, 46, 129, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-card::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.welcome-card h2 {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  line-height: 1.25 !important;
+}
+
+.welcome-card p {
+  color: #c7d2fe !important;
+  font-size: 13.5px !important;
+}
+
+.welcome-card a {
+  background: #ffffff !important;
+  color: #312e81 !important;
+  border-radius: 9999px !important;
+  padding: 10px 22px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.welcome-card a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+  color: #4338ca !important;
+}
+
+/* 8. Quick Actions Card */
+.quick-card {
+  border-radius: 20px !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.quick-card h3 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.quick-card a {
+  border-radius: 12px;
+  padding: 12px 10px !important;
+  transition: all 0.2s ease;
+}
+
+.quick-card a:hover {
+  background: #f8faff;
+  transform: translateX(4px);
+}
+
+.quick-icon {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%) !important;
+  color: #4f46e5 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.12) !important;
+}
+
+.quick-card a strong {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+/* 9. Buttons & Actions */
+.create-button,
+button[type="submit"],
+.btn.blue,
+.accept-btn {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.create-button:hover,
+button[type="submit"]:hover:not(:disabled),
+.btn.blue:hover:not(:disabled),
+.accept-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.45) !important;
+}
+
+.cancel-btn,
+.decline-btn,
+.btn.red {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+.update-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  color: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+/* 10. Tables & Badges */
+.table-container,
+.table-wrap {
+  border-radius: 18px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+}
+
+table th {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  padding: 16px 18px !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+table td {
+  padding: 16px 18px !important;
+  color: #334155 !important;
+  font-size: 13.5px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+table tbody tr {
+  transition: all 0.18s ease;
+}
+
+table tbody tr:hover {
+  background-color: #f8faff !important;
+}
+
+/* Tracking numbers */
+td.tracking,
+td a {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 700 !important;
+  color: #4f46e5 !important;
+}
+
+/* 11. Form Inputs with Purple Glow */
+input, textarea, select {
+  border-radius: 12px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  padding: 12px 14px !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18) !important;
+  outline: none !important;
+}
+
+/* 12. Auth Brand Panel (Login / Register) */
+.brand-panel {
+  background: linear-gradient(145deg, #1e1b4b 0%, #312e81 45%, #4338ca 85%, #6366f1 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-panel::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+  pointer-events: none;
+}
+
+.brand-panel h1 {
+  font-size: 38px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* 13. Status Badges Pill Polish */
+app-status-badge span {
+  border-radius: 9999px !important;
+  padding: 5px 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+}
